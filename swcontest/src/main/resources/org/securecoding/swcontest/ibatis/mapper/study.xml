@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="study">
+
+	<typeAlias alias="boardVo" type="org.securecoding.swcontest.vo.BoardVo"/>
+	<typeAlias alias="fileVo" type="org.securecoding.swcontest.vo.FileVo"/>
+	
+	
+	<select id="selectStudyList" resultClass="boardVo" parameterClass="String">
+		select 	BOR_NUM,
+				BOR_TITLE,
+				BOR_WRI_PERS,
+				BOR_CONT,
+				BOR_DATE,
+				bor_chk_con	
+		from board
+		where BOR_NUM=#bor_num# 
+	</select>
+	
+
+	<update id="selectStudyUpdate" parameterClass="boardVo">
+		update board set 
+			bor_title=#bor_title#,
+			bor_date=(select TO_CHAR(sysdate,'yy/mm/dd hh24:mi:ss')from dual),
+			bor_cont=#bor_cont#	
+			where bor_num=#bor_num#
+	</update>
+	
+	
+	<insert id="studyInsert" parameterClass="boardVo">
+		<selectKey keyProperty="bor_num" resultClass="String">
+			select seq_board.nextval from dual
+		</selectKey>
+		insert into board(
+		BOR_TITLE,
+		BOR_WRI_PERS,
+		BOR_DATE,
+		BOR_CONT,
+		BOR_NUM,
+		BOR_CHK_CON,
+		BOR_DIVI_CODE			
+		) 
+		values(
+		#bor_title#,
+		#bor_wri_pers#,
+		(select TO_CHAR(sysdate,'yy/mm/dd hh24:mi:ss')from dual),
+		#bor_cont#, 
+		#bor_num#, 
+		0,
+		(select bor_divi_code from bordivi where BOR_DIVI_NAME='학습게시판')
+		)
+		 
+	
+	</insert>
+	
+	<delete id="studyDelete" parameterClass="String">
+		delete board
+		where BOR_NUM=#bor_num#
+	</delete>
+	
+	 <insert id="studyUpload" parameterClass="fileVo">
+		insert into borfile (
+		BOR_FILE_NUM,
+		BOR_FILE_NAME,
+		BOR_FILE_PATH,
+		BOR_FILE_SIZE,
+		BOR_NUM
+		)
+		values(
+		seq_borfile.nextval,
+		#bor_file_name#,
+		#bor_file_path#,
+		#bor_file_size#,
+		(select bor_num from board where bor_num=#bor_num#))
+	</insert> 
+	
+	<select id="studyDownload" resultClass="fileVo" parameterClass="String">
+		select bor_file_name,
+    			BOR_FILE_SIZE,
+    			bor_file_num
+		from borfile
+		where BOR_NUM=#bor_num#	
+	</select>
+	
+	<select id="selectNumDownload" resultClass="fileVo" parameterClass="String">
+		select bor_file_path,
+			   bor_file_name
+		from borfile
+		where bor_file_num=#bor_file_num#	
+	</select>
+	
+	
+	<update id="studyCount" parameterClass="boardVo">
+		update board set
+		bor_chk_con=#bor_chk_con#
+		where bor_num=#bor_num#
+	</update>
+	
+	<select id="selectByName" parameterClass="String" resultClass="String">
+		select DISTINCT(bor_file_name)
+		from borfile
+		where bor_file_name=#bor_file_name#
+	</select>
+	
+	<delete id="studyfileDelete" parameterClass="String">
+		delete borfile
+		where bor_file_num=#bor_file_num#
+	</delete>
+
+</sqlMap>

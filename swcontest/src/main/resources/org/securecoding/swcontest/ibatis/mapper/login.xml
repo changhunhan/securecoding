@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="login">
+	<typeAlias alias="memberVo" type="org.securecoding.swcontest.vo.MemberVo" />
+	<typeAlias alias="sessionVo" type="org.securecoding.swcontest.vo.SessionVo" />
+<typeAlias alias="findIdPwVo" type="org.securecoding.swcontest.vo.FindIdPwVo" />
+
+<!-- 	<typeAlias alias="loginVo" type="org.securecoding.swcontest.login.vo.LoginVo" /> -->
+<!-- 	<typeAlias alias="findIdPwVo" type="org.securecoding.swcontest.member.controller.findIdPwVo" /> -->
+<!-- 	<typeAlias alias="loginIdPwCodeVo" type="org.securecoding.swcontest.login.vo.LoginIdPwCodeVo" /> -->
+
+	<!-- 로그인시 id/pw비교 -->
+	<select id="selectIdPwById" resultClass="memberVo">
+		SELECT	MEM_ID
+			 ,	MEM_PASS
+		FROM	MEMBER
+		WHERE	MEM_ID = #mem_id#
+		UNION
+		SELECT	TEA_ID
+			 ,	TEA_PASS
+		FROM	TEACHER
+		WHERE	TEA_ID = #mem_id#
+	</select>
+
+	<select id="checkCodeByIdPw" resultClass="string">
+		SELECT	'' CODE
+		FROM	MEMBER
+		WHERE 	MEM_ID = #id# AND MEM_PASS = #pass#
+		UNION
+		SELECT	PROCE_CFY_CODE CODE
+		FROM	TEACHER
+		WHERE	TEA_ID = #id# AND TEA_PASS = #pass#
+	</select>
+
+
+	<select id="selectByNameEmail" resultClass="findIdPwVo">
+		
+		select mem_name as mem_name,
+		mem_email as mem_email,
+		mem_id as mem_id
+		from member
+		where mem_name = #mem_name# and mem_email = #mem_email#
+		union
+		select tea_name as tea_name
+		,tea_email as tea_email
+		,tea_id as tea_id
+		from teacher
+		where tea_name = #mem_name# and tea_email = #mem_email#	
+	</select>
+	
+	<select id="selectByIdEmail" resultClass="findIdPwVo">
+		select mem_id,mem_name,mem_email
+		from member
+		where mem_id = #mem_id# and mem_name = #mem_name# and mem_email = #mem_email#
+		union
+		select tea_id, tea_name, tea_email
+		from teacher
+		where tea_id = #mem_id# and tea_name = #mem_name# and tea_email = #mem_email#
+		
+	</select>
+	
+ 	<update id="updateByPw" >
+	 update member set	
+	 mem_pass = #mem_pass#
+	 where mem_id = #mem_id#
+	</update> 
+
+	<update id="tupdateByPw" >
+	 update teacher set	
+	 tea_pass = #mem_pass#
+	 where tea_id = #mem_id#
+	</update> 
+
+</sqlMap>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:security="http://www.springframework.org/schema/security"
+   xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+   <security:http pattern="/css/**" security="none" />
+   <security:http pattern="/fonts/**" security="none" />
+   <security:http pattern="/image/**" security="none" />
+   <security:http pattern="/styles/**" security="none" />
+   <security:http pattern="/js/**" security="none" />
+   <security:http pattern="/plugins/**" security="none" />
+   <security:http pattern="/dist/**" security="none" />
+    <security:http pattern="/bootstrap/**" security="none" />
+     <security:http pattern="/build/**" security="none" />
+     <security:http pattern="/pages/**" security="none" />
+   <security:http use-expressions="true" auto-config="true">
+    
+      <security:intercept-url pattern="/sAdvice/studentPage" requires-channel="https" />
+      <security:intercept-url pattern="/tAdvice/teacherPage" requires-channel="https" />
+      <security:intercept-url pattern="/sAdvice/studentKey" requires-channel="https" />
+      <security:intercept-url pattern="/tAdvice/teacherKey" requires-channel="https" />
+      <security:intercept-url pattern="/tAdvice/keyUpdate" requires-channel="https" />
+      <security:intercept-url pattern="/**" requires-channel="http"/>
+	<security:port-mappings>
+		<security:port-mapping http="80" https="8443"/>
+	</security:port-mappings>
+   </security:http>
+   <context:component-scan base-package="org.securecoding.swcontest" />
+	 <security:authentication-manager alias="authenticationManager">
+   </security:authentication-manager>
+</beans>

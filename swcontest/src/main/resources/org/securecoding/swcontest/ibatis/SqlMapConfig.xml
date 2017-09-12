@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
+		maxTransactions="5" useStatementNamespaces="true" />
+
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/member.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/login.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/main.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/cunotice.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/borcomm.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/ziptv.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/cmknowledge.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/study.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/afterexam.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/cutnotice.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/answer.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/tadvice.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/sadvice.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/curriculum.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/mindmap.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/lecture.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/teacherList.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/watch.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/currireq.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/aStudent.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/sInquire.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/aTeacher.xml" />
+	<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/tinformation.xml" />
+		<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/inquire.xml" />
+		<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/banner.xml" />
+		<sqlMap resource="org/securecoding/swcontest/ibatis/mapper/aVideo.xml" />
+</sqlMapConfig>

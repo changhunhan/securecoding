@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+
+body{
+	background: white;
+}
+#inputOption{
+	width: 90%;
+}
+#wrapper{
+	background: white;
+}
+#backBox{
+	height: 100%;
+}
+#title{
+	color: #3c8dbc;
+	font-weight: bold;
+}
+
+#sQfont{
+	font-weight: bold;
+}
+
+#conWBground{
+	background-color: white;
+}
+#hr{
+	width: 1370px;
+}

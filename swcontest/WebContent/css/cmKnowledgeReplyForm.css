@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+#option{
+	margin-left: 60%;
+}
+#title{
+	color: #3c8dbc;	
+	font-weight: bold;
+}
+#wrapper{
+	background: white;
+}
+#conWBground{
+	background-color: white;
+}
+#option{
+	margin-left:40%;
+	padding-left: 30%;
+}
+#i{
+	color: #3c8dbc;	 
+		
+}
+#hr{
+	width: 1370px;
+}

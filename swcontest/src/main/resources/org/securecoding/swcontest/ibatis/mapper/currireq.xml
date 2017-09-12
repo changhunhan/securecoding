@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="curriReq">
+
+	<typeAlias alias="curriReqVo" type="org.securecoding.swcontest.vo.CurriReqVo"/>	
+	
+	<select id="curriReqList" resultClass="curriReqVo" parameterClass="String">
+		select 	cur_req_num,
+				cur_req_date,
+				(select cur_title from curricullum where cur_num=currireq.CUR_NUM) as cur_num,
+        		(select tea_name from teacher where tea_id=
+        		(select tea_id from curricullum where cur_num=currireq.CUR_NUM)) as mem_id,
+				cur_achie_rate,
+				cur_sft,
+				cur_num as lec_wat_num
+		from currireq
+		where mem_id=#mem_id#
+		ORDER BY cur_req_num
+	</select>
+	
+	<select id="curriReqMem" resultClass="curriReqVo">
+		SELECT 
+       		member.MEM_NAME as mem_name,
+       		member.MEM_ID as mem_id,
+       		CURRIREQ.CUR_REQ_DATE as cur_req_date,
+       		curricullum.CUR_TITLE as cur_title,
+       		CURRIREQ.CUR_ACHIE_RATE as cur_achie_rate
+		FROM curricullum,CURRIREQ,member
+		where TEA_ID=#tea_id#
+		and curricullum.CUR_NUM=CURRIREQ.CUR_NUM
+		and CURRIREQ.MEM_ID=member.MEM_ID
+	</select>
+	
+	<delete id="curriDelete" parameterClass="String">
+		delete from currireq
+		where cur_req_num=#cur_req_num#
+	</delete>
+	
+	<delete id="lecWatDelete" parameterClass="curriReqVo">
+		delete from lecwat
+		where cur_num=#lec_wat_num# 
+		and mem_id=#mem_id#
+	</delete>
+	
+
+
+</sqlMap>

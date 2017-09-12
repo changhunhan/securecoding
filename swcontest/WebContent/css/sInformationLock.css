@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+#conWBground{
+	background-color: white;
+}
+
+#boxStyle{
+	padding:7%;
+	border:dashed;
+	border-width:0.5px;
+	color: #76caf1;
+}
+
+#password{
+	background:#76caf1; 
+}
+
+#larrow{
+	color: white;
+	
+}
+
+#password{
+ 	color: white;
+ 	border: 1px;
+}
+
+#password::-webkit-input-placeholder {
+   	color: white;
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- BeanNameViewResolver bean 등록 view페이지를 
+		jsp가 아닌 bean id이름을 이용해서 설정한다.
+	 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+	<bean id="download" class="org.securecoding.swcontest.board.DownLoadView"/>
+	<bean id="ansDownload" class="org.securecoding.swcontest.board.AnsDownLoadView"/>
+	<bean id="mindDownload" class="org.securecoding.swcontest.mindmap.controller.MindmapDownLoadView"/>
+	
+	<context:component-scan base-package="org.securecoding.swcontest" />
+
+</beans> 

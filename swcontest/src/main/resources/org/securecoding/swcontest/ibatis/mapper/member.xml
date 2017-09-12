@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="member">
+	<typeAlias alias="memberVo" type="org.securecoding.swcontest.vo.MemberVo" />
+	<typeAlias alias="zipVo" type="org.securecoding.swcontest.vo.ZipVo"/>
+	<insert id="insertMember" parameterClass="memberVo">
+		insert into member
+		(mem_id,
+		mem_name,
+		mem_bir,
+		mem_pass,
+		mem_tel,
+		mem_add1,
+		mem_add2,
+		mem_email,
+		mem_reg_num1,
+		mem_reg_num2,
+		mem_zip,
+		mem_img_rename)
+		values
+		(#mem_id#,
+		#mem_name#,
+		#mem_bir#,
+		#mem_pass#,
+		#mem_tel#,
+		#mem_add1#,
+		#mem_add2#,
+		#mem_email#,
+		#mem_reg_num1#,
+		#mem_reg_num2#,
+		#mem_zip#,
+		'profile.jpg')
+	</insert>
+	<select id="selectById" parameterClass="string" resultClass="string">
+		select mem_id from member where mem_id = #id#
+	</select>
+	
+	<select id="selectAllById" resultClass="memberVo">
+		SELECT
+		MEM_ID,
+		MEM_NAME,
+		MEM_BIR,
+		MEM_PASS,
+		MEM_TEL,
+		MEM_ADD1,
+		MEM_ADD2,
+		MEM_EMAIL,
+		MEM_REG_NUM1,
+		MEM_REG_NUM2,
+		MEM_ZIP,
+		MEM_IMG_RENAME
+		FROM MEMBER 
+		WHERE MEM_ID = #mem_id#
+	</select>
+	
+	<update id="updateById">
+		UPDATE	MEMBER
+		SET MEM_BIR = #mem_bir#,
+			MEM_TEL = #mem_tel#,
+			MEM_ADD1 = #mem_add1#,
+			MEM_ADD2 = #mem_add2#,
+			MEM_EMAIL = #mem_email#,
+			MEM_REG_NUM1 = #mem_reg_num1#,
+			MEM_REG_NUM2 = #mem_reg_num2#,
+			MEM_ZIP = #mem_zip#,
+			MEM_IMG_RENAME = #mem_img_rename#
+		WHERE MEM_ID = #mem_id#
+	</update>
+	
+	<update id="updatePasswordById" parameterClass="memberVo">
+		UPDATE MEMBER
+		SET MEM_PASS = #mem_pass#
+		WHERE MEM_ID = #mem_id#
+	</update>
+	
+	<select id="selectZipAll" resultClass="zipVo">
+		SELECT *
+		FROM ZIPTB
+		WHERE DONG like #dong#||'%'
+		ORDER BY SEQ
+	</select>
+	
+</sqlMap>

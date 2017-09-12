@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="sinquire">
+
+	<typeAlias alias="answerBoardVo" type="org.securecoding.swcontest.vo.AnswerBoardVo" />
+	
+	
+	<select id="sInquireList"  resultClass="answerBoardVo">
+		SELECT ANS_BOR_NUM,
+				ANS_BOR_TITLE,
+				ANS_BOR_WRI_PERS,
+				ANS_BOR_DATE,
+				ANS_BOR_CHK_CON,
+				ANS_BOR_NEXT_NUM
+				FROM ANSWERBOR		
+			WHERE (BOR_DIVI_CODE in('bdi03','bdi04')
+      and ANS_BOR_GUP_NUM=#ans_bor_gup_num#)
+		ORDER BY ANS_BOR_NUM asc, ANS_BOR_DATE DESC
+	</select>
+
+	<select id="sInquireDetail" resultClass="answerBoardVo"
+		parameterClass="String">
+		SELECT ANS_BOR_TITLE
+		, ANS_BOR_WRI_PERS
+		, ANS_BOR_DATE
+		, ANS_BOR_CONT
+		, ANS_BOR_NUM
+		, ANS_BOR_CHK_CON
+		, ANS_BOR_ORI_NUM
+		, ANS_BOR_GUP_NUM
+		, ANS_BOR_NEXT_NUM
+		, BOR_DIVI_CODE
+		FROM ANSWERBOR
+		WHERE  ANS_BOR_NUM=#ans_bor_num#
+	</select>
+
+	<delete id="sInquireDelete" parameterClass="string">
+		DELETE ANSWERBOR
+		where ANS_BOR_NUM = #ans_bor_num#
+	</delete>
+	
+	<select id="sInquireByid" resultClass="answerBoardVo">
+		SELECT ANS_BOR_GUP_NUM 
+		from ANSWERBOR 
+		where ANS_BOR_WRI_PERS=#mem_id#
+		order by ANS_BOR_GUP_NUM desc
+	</select>
+	
+</sqlMap>

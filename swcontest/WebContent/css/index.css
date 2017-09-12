@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+
+div {
+	display: block;
+}
+
+.info_cont ul.gyTab>li {
+	float: left;
+	height: 50px;
+	width: 16.666%;
+}
+
+.info_tab1 li {
+	float: left;
+	margin-bottom: -1px;
+}
+
+.info_tab1 {
+	margin-left: 40px;
+}
+
+.info_cont ul.gyTab>li>a {
+	display: block;
+	font-size: 15px;
+	color: #333333;
+	text-align: center;
+	line-height: 48px;
+	border: 1px solid #4e4e4e;
+	border-left: none;
+	background: #fff;
+}
+
+.info_cont ul.gyTab>li>a.hover {
+	background: yellow;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+.info_cont {
+	position: relative;
+	height: 70px;
+}
+
+.info_tab1 a {
+	display: block;
+	position: relative;
+	margin-left: -1px;
+	padding: 10px 0 10px;
+	width: 150px;
+	border: 1px solid #ddd;
+	background: #f7f7f7;
+	color: #888;
+	text-align: center;
+	letter-spacing: -0.1em;
+	line-height: 1.2em;
+	cursor: pointer;
+}
+
+.info_tab1 .on {
+	z-index: 2;
+	border: 1px solid #565e60;
+	background: #fff;
+	color: #565e60;
+	font-weight: bold;
+}
+
+h5.type1 {
+	font-size: 18px;
+	font-weight: bold;
+	color: #555555;
+	padding-left: 25px;
+	background: url(../image/ic_title.gif) 0 6px no-repeat;
+	line-height: 25px;
+	margin: 0 0 20px 0;
+}
+
+.modal-body {
+	max-height: calc(100vh - 210px);
+	overflow-y: auto;
+}
+
+#mem_pass, #mem_name, #mem_tel, #mem_bir, #mem_add1, #mem_add2 {
+	width: 460px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+}
+
+#mem_res_num1, #mem_res_num2 {
+	width: 200px;
+	border-radius: 4px;
+	height: 34px;
+	border: 1px solid #ccc;
+}
+
+.box-body {
+	text-align: center;
+}
+
+.input-group {
+	position: relative;
+	display: inline-table;
+	border-collapse: separate;
+}

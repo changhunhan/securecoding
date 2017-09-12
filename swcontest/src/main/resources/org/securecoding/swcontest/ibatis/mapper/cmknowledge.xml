@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="cmknowledge">
+
+	<typeAlias alias="answerBoardVo" type="org.securecoding.swcontest.vo.AnswerBoardVo" />
+	<typeAlias alias="answerBoardFileVo" type="org.securecoding.swcontest.vo.AnswerBoardFileVo" />
+
+	<select id="knowledgeList" resultClass="answerBoardVo">
+		SELECT ANS_BOR_NUM,
+		ANS_BOR_TITLE,
+		ANS_BOR_WRI_PERS,
+		ANS_BOR_DATE,
+		ANS_BOR_CHK_CON,
+		ANS_BOR_NEXT_NUM
+		FROM ANSWERBOR
+		WHERE BOR_DIVI_CODE='bdi03'
+		ORDER BY
+		ANS_BOR_GUP_NUM DESC, ANS_BOR_ORI_NUM ASC
+<!-- 		TO_NUMBER(ANS_BOR_NUM) DESC -->
+	</select>
+
+	<select id="knowledgeDetail" resultClass="answerBoardVo"
+		parameterClass="String">
+		SELECT ANS_BOR_TITLE
+		, ANS_BOR_WRI_PERS
+		, ANS_BOR_DATE
+		, ANS_BOR_CONT
+		, ANS_BOR_NUM
+		, ANS_BOR_CHK_CON
+		, ANS_BOR_ORI_NUM
+		, ANS_BOR_GUP_NUM
+		, ANS_BOR_NEXT_NUM
+		, BOR_DIVI_CODE
+		FROM ANSWERBOR
+		WHERE ANS_BOR_NUM=#ans_bor_num#
+	</select>
+
+	<update id="knowledgeUpdate" parameterClass="answerBoardVo">
+		UPDATE ANSWERBOR
+		SET
+		ANS_BOR_TITLE = #ans_bor_title#
+		, ANS_BOR_DATE = (SELECT TO_CHAR(SYSDATE,'YY/MM/DD HH24:MI:SS')FROM
+		DUAL)
+		, ANS_BOR_CONT = #ans_bor_cont#
+		WHERE ANS_BOR_NUM = #ans_bor_num#
+	</update>
+	
+	<update id="updateAnsOnum" parameterClass="map"> <!--vo나 Map을 이용해 2개를 가져온다. -->
+		UPDATE	ANSWERBOR
+		SET		ANS_BOR_ORI_NUM = ANS_BOR_ORI_NUM + 1
+		WHERE	ANS_BOR_GUP_NUM = #ans_bor_gup_num#  <!--같은 GNUM에서 ONUM은 크거나 같은것 -->
+		AND 	ANS_BOR_ORI_NUM >= #ans_bor_ori_num#
+	</update>
+	
+	<!-- 댓글 저장 insert -->
+   <insert id="knowledgeAnsInsert" parameterClass="answerBoardVo">
+      <selectKey keyProperty="ans_bor_num" resultClass="string">
+         SELECT SEQ_ANSBORCOM.NEXTVAL FROM DUAL
+      </selectKey>
+      INSERT INTO
+			ANSWERBOR(	ANS_BOR_TITLE
+					,   ANS_BOR_WRI_PERS
+					,   ANS_BOR_DATE
+					,   ANS_BOR_CONT
+					,   ANS_BOR_NUM
+					,   ANS_BOR_CHK_CON
+					,   ANS_BOR_ORI_NUM
+					,   ANS_BOR_GUP_NUM
+					,   ANS_BOR_NEXT_NUM
+					,   BOR_DIVI_CODE
+			)
+			VALUES( 	#ans_bor_title#
+					,   #ans_bor_wri_pers#
+					,   (SELECT TO_CHAR(SYSDATE,'YY/MM/DD HH24:MI:SS')FROM DUAL)
+					,   #ans_bor_cont#
+					,   #ans_bor_num#
+					,   0
+					,   #ans_bor_ori_num#
+					,   #ans_bor_gup_num#
+					,   #ans_bor_next_num#
+					,   (SELECT BOR_DIVI_CODE FROM BORDIVI WHERE BOR_DIVI_NAME='지식인')
+			)
+   </insert>
+
+	<insert id="knowledgedgeInsert" parameterClass="answerBoardVo">
+		<selectKey keyProperty="ans_bor_num" resultClass="String">
+			SELECT SEQ_ANSBORCOM.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+			ANSWERBOR(	ANS_BOR_TITLE
+					,   ANS_BOR_WRI_PERS
+					,   ANS_BOR_DATE
+					,   ANS_BOR_CONT
+					,   ANS_BOR_NUM
+					,   ANS_BOR_CHK_CON
+					,   ANS_BOR_ORI_NUM
+					,   ANS_BOR_GUP_NUM
+					,   ANS_BOR_NEXT_NUM
+					,   BOR_DIVI_CODE
+			)
+			VALUES( 	#ans_bor_title#
+					,   #ans_bor_wri_pers#
+					,   (SELECT TO_CHAR(SYSDATE,'YY/MM/DD HH24:MI:SS')FROM DUAL)
+					,   #ans_bor_cont#
+					,   #ans_bor_num#
+					,   0
+					,   0
+					,   SEQ_ANSBORCOM.CURRVAL
+					,   0
+					,   (SELECT BOR_DIVI_CODE FROM BORDIVI WHERE BOR_DIVI_NAME='지식인')
+			)
+	</insert>
+
+	<delete id="knowledgeDelete" parameterClass="string">
+		delete ANSWERBOR
+		where ANS_BOR_GUP_NUM = #ans_bor_gup_num#
+	</delete>
+	
+	<delete id="knowledgeNumDelete" parameterClass="string">
+		delete ANSWERBOR
+		where ANS_BOR_NUM = $ans_bor_num$
+	</delete>
+	
+	<delete id="knowledgeAllFileDelete" parameterClass="string">
+		delete ansborfile
+		where ans_bor_num=#ans_bor_num#
+	</delete>
+
+	<insert id="knowledgeUpload" parameterClass="answerBoardFileVo">
+		INSERT INTO
+		ANSBORFILE (	ANS_BOR_FILE_NUM
+					,   ANS_BOR_FILE_NAME
+					,   ANS_BOR_FILE_PATH
+					,   ANS_BOR_FILE_SIZE
+					,   ANS_BOR_NUM
+		)
+		VALUES( 		SEQ_ANSBORFILE.NEXTVAL
+					,   #ans_bor_file_name#
+					,   #ans_bor_file_path#
+					,   #ans_bor_file_size#
+					,   (SELECT ANS_BOR_NUM FROM ANSWERBOR WHERE ANS_BOR_NUM=#ans_bor_num#)
+		)
+	</insert>
+
+	<select id="knowledgeDownload" resultClass="answerBoardFileVo" parameterClass="string">
+		SELECT	ANS_BOR_FILE_NUM
+			,	ANS_BOR_FILE_NAME
+			,   ANS_BOR_FILE_SIZE
+			,   ANS_BOR_NUM
+		FROM 	ANSBORFILE
+		WHERE 	ANS_BOR_NUM = #ans_bor_num#
+	</select>
+
+	<select id="selectNumDownload" resultClass="answerBoardFileVo"
+		parameterClass="String">
+		SELECT ANS_BOR_FILE_PATH
+		, ANS_BOR_FILE_NAME
+		FROM ANSBORFILE
+		WHERE ANS_BOR_FILE_NUM =
+		#ans_bor_file_num#
+	</select>
+
+	<update id="knowledgeCount" parameterClass="answerBoardVo">
+		UPDATE ANSWERBOR
+		SET
+		ANS_BOR_CHK_CON = #ans_bor_chk_con#
+		WHERE ANS_BOR_NUM = #ans_bor_num#
+	</update>
+
+	<select id="selectAnsFileByName" parameterClass="String"
+		resultClass="String">
+		select DISTINCT(ANS_BOR_FILE_NAME)
+		from ANSBORFILE
+		where
+		ANS_BOR_FILE_NAME=#ans_bor_file_name#
+	</select>
+
+	<delete id="knowledgefileDelete" parameterClass="String">
+		DELETE
+		ANSBORFILE
+		WHERE ANS_BOR_FILE_NUM=#ans_bor_file_num#
+	</delete>
+
+	<select id="checkFile" resultClass="Integer">
+		SELECT COUNT(*)
+		FROM ANSBORFILE
+		WHERE ANS_BOR_NUM = #ans_bor_num#
+	</select>
+
+</sqlMap>

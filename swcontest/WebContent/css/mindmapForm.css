@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+#h2Style{
+	color: #3c8dbc;
+  	padding-top: 7%;
+	
+}
+#labelStyle{
+	margin-left: 7%;
+}
+#uploadBoardClick{
+	width: 115px;
+}
+#close{
+	width: 115px;
+}

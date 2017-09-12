@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+#idstyle{
+	color: #3c8dbc;
+	font-weight: bold;
+	font-size: 29px;
+}
+#form{
+	margin-left:40%;
+	margin-top:10%;
+	border: 1px solid lightgray;
+	padding: 20px;
+}
+#send{
+	width:278px;
+}
+	
+	

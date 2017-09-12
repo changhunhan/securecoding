@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+
+#title{
+	color: #3c8dbc;	
+	font-weight: bold;
+}
+
+#conWBground{
+	background-color: white;
+}
+
+
+#hr{
+	width: 1370px;
+}

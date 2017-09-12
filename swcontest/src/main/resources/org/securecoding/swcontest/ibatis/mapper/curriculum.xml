@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="curriculum">
+	<typeAlias alias="curriculumVo" type="org.securecoding.swcontest.video.lecture.vo.CurriculumVo" />
+	<typeAlias alias="lectureVo" type="org.securecoding.swcontest.video.lecture.vo.LectureVo" />
+	<typeAlias alias="curReqVo" type="org.securecoding.swcontest.vo.CurriReqVo"/>
+	
+	<select id="curriculumList" resultClass="curriculumVo">
+		SELECT A.CUR_NUM,
+		       A.CUR_TITLE,
+		       A.PROCE_CFY_CODE,
+		       B.PROCE_NAME,
+		       A.CUR_POSS,
+		       A.TEA_ID
+		FROM CURRICULLUM A LEFT OUTER JOIN PROCESSCLA B ON (A.PROCE_CFY_CODE =
+		B.PROCE_CFY_CODE)
+		WHERE A.TEA_ID = #mem_id#
+	</select>
+	<select id="selectLectureAll" resultClass="lectureVo">
+		SELECT LEC_NUM,
+			   LEC_TITLE,
+			   CUR_NUM
+		FROM LECTURE
+		ORDER BY LEC_NUM
+	</select>
+	<select id="selectCode" resultClass="curriculumVo">
+		SELECT B.PROCE_NAME,
+			   A.PROCE_CFY_CODE
+		FROM TEACHER A LEFT OUTER JOIN PROCESSCLA B ON(A.PROCE_CFY_CODE = B.PROCE_CFY_CODE)
+		WHERE TEA_ID = #tea_id#
+	</select>
+	<select id="selectCurNum" resultClass="curriculumVo">
+		SELECT CUR_NUM
+		FROM LECTURE
+		WHERE LEC_NUM = #lec_num#
+	</select>
+	
+	<insert id="insertCurriculum" parameterClass="curriculumVo">
+		<selectKey keyProperty="cur_num" resultClass="String">
+			select seq_curricullum.nextval from dual
+		</selectKey>
+		INSERT INTO CURRICULLUM(CUR_NUM, CUR_TITLE, PROCE_CFY_CODE, CUR_POSS, TEA_ID)
+		VALUES(#cur_num#,#cur_title#,#proce_cfy_code#,#cur_poss#,#tea_id#)
+	</insert>
+	
+	<select id="selectPath" resultClass="string">
+		SELECT PATH
+		FROM MIDMBOARD
+		WHERE CUR_NUM = #cur_num#
+	</select>
+	
+	<select id="searchReq" resultClass="String">
+		SELECT CUR_REQ_NUM
+		FROM CURRIREQ
+		WHERE CUR_NUM = #cur_num#
+		AND MEM_ID = #mem_id#
+	</select>
+	
+	<insert id="insertReq" parameterClass="curReqVo">
+		INSERT INTO CURRIREQ(CUR_NUM, MEM_ID)
+		VALUES(#cur_num#, #mem_id#)
+	</insert>
+	
+	<select id="selectByNumCur" resultClass="curriculumVo" parameterClass="String">
+		select 
+			curricullum.cur_num,
+			curricullum.cur_title,
+			curricullum.proce_cfy_code,
+			curricullum.cur_poss,
+			curricullum.tea_id,
+      processcla.proce_name
+		from curricullum,processcla
+		where cur_num=#cur_num#
+    and curricullum.proce_cfy_code=processcla.proce_cfy_code
+	</select>
+	
+	<update id="updateCurri" parameterClass="curriculumVo">
+		update curricullum set
+			cur_title=#cur_title#,
+			cur_poss=#cur_poss#
+		where cur_num=#cur_num#
+	</update>
+	
+	<delete id="deleteCurri" parameterClass="String">
+		delete from curricullum
+		where cur_num=#cur_num#
+	</delete>
+	
+</sqlMap>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="banner">
+	<typeAlias alias="processClaVo" type="org.securecoding.swcontest.vo.ProcessClaVo"/>
+	<typeAlias alias="bannerVo" type="org.securecoding.swcontest.main.vo.BannerVo"/>
+	<insert id="insertBanner" parameterClass="bannerVo">
+	INSERT INTO BANNER(BANN_DATE, BANN_CONT)
+	VALUES(TO_DATE(#bann_date#, 'YY/MM/DD'), #bann_cont#)
+	</insert>
+	<update id="updateBanner">
+		UPDATE BANNER SET BANN_CONT=#bann_cont#, BANN_DATE=TO_DATE(#bann_date#, 'YY/MM/DD')
+		WHERE BANN_NUM = #bann_num#
+	</update>
+	<delete id="deleteBanner">
+		DELETE BANNER
+		WHERE BANN_NUM = #bann_num#
+	</delete>
+</sqlMap>

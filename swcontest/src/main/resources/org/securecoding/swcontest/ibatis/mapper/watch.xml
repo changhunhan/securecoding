@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="watch">
+	<typeAlias alias="lectureVo" type="org.securecoding.swcontest.video.lecture.vo.LectureVo" />
+	<typeAlias alias="videoVo" type="org.securecoding.swcontest.video.lecture.vo.VideoVo" />
+	<typeAlias alias="bookMarkVo" type="org.securecoding.swcontest.vo.BookMarkVo" />
+	<typeAlias alias="lecComVo" type="org.securecoding.swcontest.vo.LecComVo"/>
+	<typeAlias alias="lecWatVo" type="org.securecoding.swcontest.vo.LecWatVo"/>
+	
+	<select id="selectLectureById" resultClass="lectureVo">
+		SELECT *
+		FROM LECTURE
+		WHERE LEC_NUM = #lec_num#
+	</select>
+	<select id="selectVideoById" resultClass="videoVo">
+		SELECT *
+		FROM VIDEO
+		WHERE LEC_NUM = #lec_num#
+	</select>
+	<select id="selectBookMarkListById" resultClass="bookMarkVo">
+		SELECT *
+		FROM LECBOOKMARK
+		WHERE LEC_NUM = #lec_num#
+		ORDER BY TO_NUMBER(BKMARK_TIME)
+	</select>
+	<insert id="insertComment">
+		INSERT INTO LECCOMM(LEC_COMM_WRI_PERS, LEC_COMM_DATE, LEC_NUM, LEC_COMM_CONT)
+		VALUES(#lec_comm_wri_pers#,#lec_comm_date#,#lec_num#,#lec_comm_cont#)
+		<selectKey keyProperty="lec_comm_num" resultClass="String">
+			SELECT SEQ_LECCOMM.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	<select id="selectCommentAll" resultClass="lecComVo">
+		SELECT lec_comm_num,
+       lec_comm_wri_pers,
+       lec_comm_date,
+       lec_num,
+       lec_comm_coNt,
+       (SELECT mem_img_rename as user_img FROM MEMBER WHERE  mem_id = A.lec_comm_wri_pers
+        union SELECT tea_img as user_img FROM TEACHER WHERE TEA_ID = A.lec_comm_wri_pers) AS comm_img
+		FROM   LECCOMM A 
+		WHERE  LEC_NUM = #lec_num#
+		order by  LEC_COMM_DATE desc
+	</select>
+	<delete id="deleteComment">
+		DELETE FROM LECCOMM WHERE LEC_COMM_NUM = #lec_comm_num#
+	</delete>
+	<insert id="insertLecWat">
+		<selectKey keyProperty="lec_wat_num" resultClass="String">
+			SELECT SEQ_LECWAT.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO LECWAT(LEC_WAT_NUM, LEC_PLAY_DATE, LEC_PLAY_TIME, LEC_NUM, MEM_ID, LEC_WAT_MEMO, LEC_ACHIEVE, LEC_WAT_TIME)
+		VALUES(#lec_wat_num#,#lec_play_date#,#lec_play_time#,#lec_num#,#mem_id#,#lec_wat_memo#, 'n', '0')
+	</insert>
+	<select id="selectLecWat" resultClass="lecWatVo">
+		SELECT *
+		FROM LECWAT
+		WHERE LEC_NUM = #lec_num#
+		AND MEM_ID = #mem_id#
+	</select>
+	<update id="updateLecWat">
+		UPDATE LECWAT
+		SET LEC_PLAY_DATE = #lec_play_date#,
+			LEC_PLAY_TIME = #lec_play_time#,
+			LEC_WAT_MEMO = #lec_wat_memo#,
+			CUR_NUM = #cur_num#,
+			LEC_WAT_TIME = #lec_wat_time#,
+			LEC_ACHIEVE = #lec_achieve#
+		WHERE LEC_NUM = #lec_num#
+		AND	  MEM_ID = #mem_id#
+	</update>
+	
+	<select id="searchNum" resultClass="String">
+		SELECT COUNT(*)
+		FROM LECWAT
+		WHERE MEM_ID = #mem_id#
+		AND CUR_NUM = #cur_num#
+	</select>
+	<select id="totalNum" resultClass="String">
+		SELECT COUNT(*)
+		FROM LECTURE
+		WHERE CUR_NUM = #cur_num#
+	</select>
+	<update id="updateCurAchieve">
+		UPDATE CURRIREQ
+		SET CUR_ACHIE_RATE = #cur_achie_rate#
+		WHERE CUR_NUM = #cur_num#
+		AND MEM_ID = #mem_id#
+	</update>
+</sqlMap>

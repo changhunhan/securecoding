@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="lecture">
+	<typeAlias alias="curriculumVo" type="org.securecoding.swcontest.video.lecture.vo.CurriculumVo" />
+	<typeAlias alias="lectureVo" type="org.securecoding.swcontest.video.lecture.vo.LectureVo" />
+	<typeAlias alias="videoVo" type="org.securecoding.swcontest.video.lecture.vo.VideoVo" />
+	<typeAlias alias="bookMarkVo" type="org.securecoding.swcontest.vo.BookMarkVo"/>
+	<select id="curriculumList" resultClass="curriculumVo">
+		SELECT A.CUR_NUM,
+		       A.CUR_TITLE,
+		       A.PROCE_CFY_CODE,
+		       B.PROCE_NAME,
+		       A.MIDM_NUM,
+		       A.CUR_POSS
+		FROM CURRICULLUM A LEFT OUTER JOIN PROCESSCLA B ON (A.PROCE_CFY_CODE =
+		B.PROCE_CFY_CODE)
+		WHERE A.TEA_ID = #mem_id#
+	</select>
+	
+	<insert id="insertVideo">
+		<selectKey keyProperty="vio_num" resultClass="String">
+			select seq_video.nextval from dual
+		</selectKey>
+		INSERT INTO VIDEO(VIO_NUM, VIO_NAME, VIO_PATH, TEA_ID, TOL_VIO_TIME, VIO_SIZE, VIO_POSTER_PATH, LEC_NUM)
+		VALUES(#vio_num#, #vio_name#, #vio_path#, #tea_id#, #tol_vio_time#, #vio_size#, #vio_poster_path#, #lec_num#)
+	</insert>
+	
+	<insert id="insertLecture">
+		<selectKey keyProperty="lec_num" resultClass="String">
+			select seq_lecture.nextval from dual
+		</selectKey>
+		INSERT INTO LECTURE(LEC_NUM, LEC_TITLE, LEC_CONT, CUR_NUM)
+		VALUES(#lec_num#, #lec_title#, #lec_cont#, #cur_num#)
+	</insert>	
+	
+	<select id="selectLectureById" resultClass="lectureVo">
+		SELECT *
+		FROM LECTURE
+		WHERE LEC_NUM = #lec_num#
+	</select>
+	
+	<select id="selectVideoById" resultClass="videoVo">
+		SELECT *
+		FROM VIDEO
+		WHERE LEC_NUM = #lec_num#
+	</select>
+	
+	<update id="updateLecture">
+		UPDATE LECTURE
+		SET LEC_TITLE = #lec_title#,
+			LEC_CONT = #lec_cont#
+		WHERE LEC_NUM = #lec_num#
+	</update>
+	
+	<update id="updateVideo">
+		UPDATE VIDEO
+		SET VIO_NAME = #vio_name#,
+			VIO_PATH = #vio_path#,
+			TOL_VIO_TIME = #tol_vio_time#,
+			VIO_SIZE = #vio_size#,
+			VIO_POSTER_PATH = #vio_poster_path#
+		WHERE LEC_NUM = #lec_num#
+	</update>
+	<insert id="insertBookMarkList" parameterClass="java.util.HashMap">
+		INSERT ALL
+		<dynamic>
+			<iterate property="List">
+				INTO LECBOOKMARK(BKMARK_TITLE, BKMARK_TIME, BKMARK_CONT, LEC_NUM)
+				VALUES(
+					#List[].bkmark_title#,
+					#List[].bkmark_time#,
+					#List[].bkmark_cont#,
+					#List[].lec_num#
+				)
+			</iterate>
+		</dynamic>
+		SELECT * FROM DUAL
+	</insert>
+	
+	<select id="selectBookMarkList" resultClass="bookMarkVo">
+		SELECT *
+		FROM LECBOOKMARK
+		WHERE LEC_NUM = #lec_num#
+	</select>
+	
+	<delete id="deleteBookMark">
+		DELETE FROM LECBOOKMARK 
+		WHERE LEC_NUM = #lec_num#
+	</delete>
+	
+	<delete id="deleteLecture">
+		DELETE FROM LECTURE
+		WHERE LEC_NUM = #lec_num#
+	</delete>
+</sqlMap>

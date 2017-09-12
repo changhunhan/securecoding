@@ -1,0 +1,53 @@
+
+.news .open-event {
+	height: 30px;
+	position: relative;
+	overflow: hidden;
+}
+
+.news .open-event ul {
+	position: absolute;
+	list-style:none;
+	top: 0px;
+}
+
+.news .open-event ul#notice1 {
+	left: 0;
+}
+
+
+
+.news .open-event ul li a {
+	display: inline-block;
+	width: 200px;
+}
+
+
+
+.news .open-event .prev {
+	position: absolute;
+	top: 1px;
+	right: 2px;
+	width: 7px;
+	height: 4px;
+	line-height: 0;
+	font-size: 0;
+}
+
+.news .open-event .next {
+	position: absolute;
+	bottom: 1px;
+	right: 2px;
+	width: 7px;
+	height: 4px;
+	line-height: 0;
+	font-size: 0;
+}
+.sp01 {
+	font:15px 'tahoma';
+	color:#56a8d6;
+	text-align:center;
+	line-height:30px;
+	font-weight: bold;
+}
+

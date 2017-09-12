@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="aTeacher">
+
+	<typeAlias alias="teacherVo" type="org.securecoding.swcontest.vo.TeacherVo"/>
+	
+	<select id="teacherListAll" resultClass="teacherVo">
+		SELECT	*	
+		FROM teacher
+	</select>
+	
+	<select id="teaDetail" parameterClass="string" resultClass="teacherVo">
+		SELECT *
+		FROM teacher
+		WHERE tea_ID=#tea_id#
+	</select>
+	
+	<delete id="teaDelete" parameterClass="string">
+		DELETE teacher
+		WHERE  tea_ID=#tea_id#
+	</delete>
+	
+	<insert id="teaInsert" parameterClass="teacherVo">
+		insert into teacher(
+			tea_id,
+			tea_name,
+			tea_pass,
+			tea_tel,
+			tea_reg_num1,
+			tea_reg_num2,
+			tea_email,
+			tea_bir,
+			tea_add1,
+			tea_add2,
+			tea_img,
+			proce_cfy_code,
+			tea_intro_img
+		)values(
+			#tea_id#,
+			#tea_name#,
+			#tea_pass#,
+			#tea_tel#,
+			#tea_reg_num1#,
+			#tea_reg_num2#,
+			#tea_email#,
+			#tea_bir#,
+			#tea_add1#,
+			#tea_add2#,
+			'profile.jpg',
+			(select proce_cfy_code from processcla where proce_cfy_code = 'pcla01'),
+			'profile.jpg'
+		)
+	</insert>
+	
+	<update id="teaUpdate" parameterClass="teacherVo">
+		UPDATE TEACHER
+		SET TEA_NAME = #tea_name#,
+			TEA_PASS = #tea_pass#,
+			TEA_TEL = #tea_tel#,
+			TEA_EMAIL = #tea_email#,
+			TEA_BIR = #tea_bir#,
+			TEA_ADD1 = #tea_add1#,
+			TEA_ADD2 = #tea_add2#,
+			TEA_REG_NUM1 = #tea_reg_num1#,
+			TEA_REG_NUM2 = #tea_reg_num2#
+		WHERE TEA_ID = #tea_id#
+	</update>
+
+</sqlMap>

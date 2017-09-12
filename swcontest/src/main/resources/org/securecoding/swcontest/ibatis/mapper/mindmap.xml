@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="mindmap">
+
+	<typeAlias alias="mindmapVo" type="org.securecoding.swcontest.vo.MindmapVo"/>
+	<typeAlias alias="mindmapFileVo" type="org.securecoding.swcontest.vo.MindmapFileVo"/>
+	
+	<insert id="mindmapInsert" parameterClass="mindmapVo">
+		<selectKey keyProperty="key" resultClass="String">
+			select seq_midmboard.nextval from dual
+		</selectKey>
+		insert into midmboard(
+		key,
+		text,
+		mind_num,
+		cur_num	
+		)
+		values(
+		seq_midmboard.currval,
+		0,
+		0,
+		#cur_num#
+		)
+	</insert>
+	
+	<update id="mindmapUpdate" parameterClass="mindmapVo">
+		update midmboard set 
+			text=#text#,
+			path=#path#,
+			mind_num=#mind_num#
+			where key=#key#
+	</update>
+	
+	<select id="mindmapList" resultClass="mindmapVo">
+		select key,
+		text,
+		mind_num,
+		path
+		from midmboard
+		where cur_num=#cur_num#
+	</select>
+	
+	<insert id="mindmapCirInsert" parameterClass="mindmapVo">
+		<selectKey keyProperty="key" resultClass="String">
+			select seq_midmimg.nextval from dual
+		</selectKey>
+		insert into midmimg(
+			midm_num,
+			midm_cont,
+			midm_key_num,
+			midm_ori_num,
+			midm_perent_num
+		)values(
+			seq_midmimg.currval,
+			#midm_cont#,
+			#midm_key_num#,
+			#midm_ori_num#,
+			#midm_perent_num#
+			)
+	</insert>
+	
+	<select id="selectByNum" resultClass="mindmapVo" parameterClass="mindmapVo">
+		select	midm_num,
+			  midm_cont	  
+		from midmimg
+		where midm_key_num=#midm_key_num#
+		and midm_ori_num=#midm_ori_num#
+	</select>
+	
+	<insert id="mindmapFileInsert">
+		insert into midmfile(
+			MIDM_FILE_CODE,
+			MIDM_FILE_SIZE,
+			MIDM_FILE_PATH,
+			MIDM_FILE_NAME,
+			MIDM_IMG_NUM
+		)values(
+			seq_midmfile.nextval,
+			#midm_file_size#,
+			#midm_file_path#,
+			#midm_file_name#,
+			#midm_img_num#
+		)
+	</insert>
+	
+	<select id="mindmapFileSelect" resultClass="mindmapFileVo" parameterClass="String">
+		select midm_file_size,
+			midm_file_path,
+			midm_file_name,
+			midm_file_code
+		from midmfile
+		where midm_img_num=#midm_img_num#
+	</select>
+	
+	<delete id="mindmapFileDelete" parameterClass="String">
+		delete from midmfile
+		where midm_img_num=#midm_img_num#
+	</delete>
+	
+	<update id="mindmapImgUpdate" parameterClass="mindmapVo">
+		update midmimg set
+			midm_cont=#midm_cont#
+		where midm_key_num=#midm_key_num#
+		and midm_ori_num=#midm_ori_num#	
+				
+	</update>
+	
+	<delete id="mindmapDelete" parameterClass="mindmapVo">
+		delete from midmimg
+		where (midm_key_num=#midm_key_num#
+		and midm_ori_num=#midm_ori_num#) 
+		or (midm_perent_num=#midm_perent_num#
+		and midm_key_num=#midm_key_num#)
+	</delete>
+	
+	<select id="selectByParent" parameterClass="mindmapVo" resultClass="mindmapVo">
+		select midm_ori_num
+		from midmimg 
+		where midm_perent_num=#midm_perent_num#
+		and midm_key_num=#midm_key_num#
+	</select>
+	
+	<select id="selectNumMindDownload" resultClass="mindmapFileVo" parameterClass="String">
+		select midm_file_path,
+			   midm_file_name
+		from midmfile
+		where midm_img_num=#midm_img_num#	
+	</select>
+	
+	<select id="mindmapResult" resultClass="mindmapVo" parameterClass="String">
+		select  midmboard.KEY as key,
+  			midmboard.path as path,
+  			midmboard.text as text,
+  			midmboard.cur_num as cur_num
+		from lecture,curricullum,midmboard
+		where lecture.lec_num=#lec_num#
+		and lecture.CUR_NUM=curricullum.CUR_NUM
+		and midmboard.CUR_NUM=curricullum.CUR_NUM
+	</select>
+	
+
+</sqlMap>

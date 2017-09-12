@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="teacher">
+	<typeAlias alias="teacherVo" type="org.securecoding.swcontest.vo.TeacherVo" />
+	<typeAlias alias="proceVo" type="org.securecoding.swcontest.vo.ProcessClaVo"/>
+	
+	<select id="selectById" resultClass="teacherVo" parameterClass="teacherVo">
+		select 
+			*
+		from teacher
+		where tea_id=#tea_id#
+	</select>
+	
+	<update id="teacherUpdate" parameterClass="teacherVo">
+		update teacher set
+			tea_tel=#tea_tel#,
+			tea_email=#tea_email#,
+			tea_bir=#tea_bir#,
+			tea_add1=#tea_add1#,
+			tea_add2=#tea_add2#,
+			tea_reg_num1=#tea_reg_num1#,
+			tea_reg_num2=#tea_reg_num2#,
+			tea_img = #tea_img#,
+			proce_cfy_code = #proce_cfy_code#
+		where tea_id=#tea_id#
+	</update>
+	
+	<update id="teacherPasswordUpdate" parameterClass="teacherVo">
+		update teacher
+		set tea_pass = #tea_pass#
+		where tea_id = #tea_id#
+	</update>
+	
+	<select id="teacherProfile" resultClass="teacherVo">
+	 	select
+  			tea_name,
+  			tea_prof,
+  			tea_intro_img,
+  			processcla.PROCE_NAME as proce_cfy_code
+		from teacher ,processcla
+		where tea_id=#tea_id#
+		and processcla.PROCE_CFY_CODE=teacher.PROCE_CFY_CODE
+	</select>
+	<select id="selectZipAll" resultClass="zipVo">
+		SELECT *
+		FROM ZIPTB
+		WHERE DONG like #dong#||'%'
+		ORDER BY SEQ
+	</select>
+	<update id="teacherProfileUpdate" parameterClass="teacherVo">
+		update teacher set
+			tea_prof=#tea_prof#,
+			tea_intro_img=#tea_intro_img#
+		where tea_id=#tea_id#
+	</update>
+	<select id="proceAll" resultClass="proceVo">
+		SELECT *
+		FROM PROCESSCLA
+	</select>
+	
+</sqlMap>

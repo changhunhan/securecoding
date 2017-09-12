@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="Template" template="/WEB-INF/layouts/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/layouts/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/layouts/menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/layouts/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
+	</definition>
+
+	<!-- 메인페이지로 이동 -->
+	<definition name="start" extends="Template">
+		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
+	</definition>
+
+	<!-- 커뮤니티 - 시험후기 게시판으로 이동 -->
+	<definition name="afterExamList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/afterExam/afterExamList.jsp"></put-attribute>
+	</definition>
+	<!-- 커뮤니티 - 시험후기 새글작성 이동 -->
+	<definition name="afterExamForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/afterExam/afterExamForm.jsp" />
+	</definition>
+	<!-- 커뮤니티 - 시험후기 수정 이동 -->
+	<definition name="afterExamEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/afterExam/afterExamEdit.jsp" />
+	</definition>
+	<!-- 커뮤니티 - 시험후기 삭제 이동 -->
+	<definition name="afterExamDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/afterExam/afterExamDetail.jsp" />
+	</definition>
+
+	<!-- 커뮤니티 - 학습 게시판으로 이동 -->
+	<definition name="studyList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/study/studyList.jsp"></put-attribute>
+	</definition>
+	<!-- 커뮤니티 - 학습 게시판 새글작성 -->
+	<definition name="studyForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/study/studyForm.jsp"></put-attribute>
+	</definition>
+	<!-- 커뮤니티 - 학습 게시판 수정 이동 -->
+	<definition name="studyEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/study/studyEdit.jsp"></put-attribute>
+	</definition>
+	<!-- 커뮤니티 - 학습 게시판 삭제 이동 -->
+	<definition name="studyDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/study/studyDetail.jsp"></put-attribute>
+	</definition>
+
+	<!-- 커뮤니티 - 가답안/확정답안 게시판으로 이동 -->
+	<definition name="answerBoard" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/answer/answerBoard.jsp"></put-attribute>
+	</definition>
+
+	<definition name="answerDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/answer/answerDetail.jsp"></put-attribute>
+	</definition>
+
+	<definition name="answerEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/answer/answerEdit.jsp"></put-attribute>
+	</definition>
+
+	<definition name="answerForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/answer/answerForm.jsp"></put-attribute>
+	</definition>
+
+<!-- 커뮤니티 - 지식인 게시판으로 이동 -->
+	<definition name="cmKnowledgeList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/knowledge/cmKnowledgeList.jsp"></put-attribute>
+	</definition>
+	<!-- 커뮤니티 - 지식인 게시판 상세내용 -->
+	<definition name="cmKnowledgeDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/knowledge/cmKnowledgeDetail.jsp" />
+	</definition>
+	<!-- 커뮤니티 - 지식인 게시판 새글작성 -->
+	<definition name="cmKnowledgeForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/knowledge/cmKnowledgeForm.jsp" />
+	</definition>
+	<!-- 커뮤니티 - 지식인 게시판 수정 -->
+	<definition name="cmKnowledgeEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/knowledge/cmKnowledgeEdit.jsp" />
+	</definition>
+	<!-- 커뮤니티 - 지식인 게시판 답글상세내용 -->
+	<definition name="cmKnowledgeReplyDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/knowledge/cmKnowledgeReplyDetail.jsp" />
+	</definition>
+		<!-- 커뮤니티 - 지식인 게시판 답글상세내용 -->
+	<definition name="cmKnowledgeReplyForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/community/knowledge/cmKnowledgeReplyForm.jsp" />
+	</definition>
+	
+
+	<!-- 고객센터 - 강사소개로 이동 -->
+	<definition name="introduceBoard" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/introduceBoard.jsp"></put-attribute>
+	</definition>
+
+	<!-- 고객센터 - FAQ로 이동 -->
+	<definition name="faqBoard" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/faqBoard.jsp"></put-attribute>
+	</definition>
+
+	<!-- 고객센터 - 1:1문의로 이동 -->
+	<definition name="cuInquireBoard" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuInquire/cuInquireBoard.jsp"></put-attribute>
+	</definition>
+	<!-- 고객센터 - 1:1문의로 작성이동 -->
+	<definition name="cuInquireForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuInquire/cuInquireForm.jsp"></put-attribute>
+	</definition>
+	<!-- 고객센터 - 1:1문의로 수정이동 -->
+	<definition name="cuInquireEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuInquire/cuInquireEdit.jsp"></put-attribute>
+	</definition>
+	<!-- 고객센터 - 1:1문의로 상세내용이동 -->
+	<definition name="cuInquireDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuInquire/cuInquireDetail.jsp"></put-attribute>
+	</definition>
+
+	<!-- 고객센터 - 1:1문의로 답글 상세내용이동 -->
+	<definition name="cuInquireReplyDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuInquire/cuInquireReplyDetail.jsp"></put-attribute>
+	</definition>
+
+
+	<!-- 공지사항 -->
+	<definition name="cuNoticeList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuNotice/cuNoticeList.jsp" />
+	</definition>
+	<!-- 공지사항 새글작성 -->
+	<definition name="cuNoticeForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuNotice/cuNoticeForm.jsp" />
+	</definition>
+	<!-- 공지사항 수정 -->
+	<definition name="cuNoticeEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuNotice/cuNoticeEdit.jsp" />
+	</definition>
+	<!-- 공지사항 상세내용 -->
+	<definition name="cuNoticeDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuNotice/cuNoticeDetail.jsp" />
+	</definition>
+
+
+	<!-- 선생님 공지사항 -->
+	<definition name="cuTnoticeList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuTnotice/cuTnoticeList.jsp" />
+	</definition>
+	<!-- 선생님 공지사항 새글작성 -->
+	<definition name="cuTnoticeForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuTnotice/cuTnoticeForm.jsp" />
+	</definition>
+	<!-- 선생님 공지사항 수정 -->
+	<definition name="cuTnoticeEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuTnotice/cuTnoticeEdit.jsp" />
+	</definition>
+	<!-- 선생님 공지사항 상세내용 -->
+	<definition name="cuTnoticeDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuTnotice/cuTnoticeDetail.jsp" />
+	</definition>
+
+
+	<!-- 관리자고객센터 - 1:1문의로 이동 -->
+	<definition name="cuAdminInquireBoard" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuAdmin/aInquire/cuAdminInquireBoard.jsp"></put-attribute>
+	</definition>
+	<!-- 관리자고객센터 - 1:1문의로 작성이동 -->
+	<definition name="cuAdminInquireForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuAdmin/aInquire/cuAdminInquireForm.jsp"></put-attribute>
+	</definition>
+	<!-- 관리자고객센터 - 1:1문의로 수정이동 -->
+	<definition name="cuAdminInquireReplyEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuAdmin/aInquire/cuAdminInquireReplyEdit.jsp"></put-attribute>
+	</definition>
+	<!-- 관리자고객센터 - 1:1문의로 상세내용이동 -->
+	<definition name="cuAdminInquireDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuAdmin/aInquire/cuAdminInquireDetail.jsp"></put-attribute>
+	</definition>
+
+	<!-- 관리자고객센터 - 1:1문의로 답글작성 이동 -->
+	<definition name="cuAdminInquireReplyForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuAdmin/aInquire/cuAdminInquireReplyForm.jsp"></put-attribute>
+	</definition>
+
+	<!-- 관리자고객센터 - 1:1문의로 답글이동 -->
+	<definition name="cuAdminInquireReplyDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/customercenter/cuAdmin/aInquire/cuAdminInquireReplyDetail.jsp"></put-attribute>
+	</definition>
+
+
+	<!-- mpAdmin-aBanner -->
+	<definition name="aBannerMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aBanner/aBannerMain.jsp" />
+	</definition>
+
+	<!-- mpAdmin-aCustomer -->
+	<definition name="aCustomerMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aCustomer/aCustomerMain.jsp" />
+	</definition>
+	<!-- mpAdmin-aNavigator -->
+	<definition name="aNavigatorMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aNavigator/aNavigatorMain.jsp" />
+	</definition>
+
+
+	<!-- 관리자페이지 공지사항관리 -->
+	<!-- mpAdmin-aNotice -->
+	<definition name="aNoticeMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aNotice/aNoticeMain.jsp" />
+	</definition>
+
+	<!-- 관리자페이지 공지사항작성 -->
+	<!-- mpAdmin-aNotice -->
+	<definition name="aNoticeForm" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aNotice/aNoticeForm.jsp" />
+	</definition>
+
+	<!-- 관리자페이지 공지사항수정 -->
+	<!-- mpAdmin-aNotice -->
+	<definition name="aNoticeEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aNotice/aNoticeEdit.jsp" />
+	</definition>
+
+	<!-- 관리자페이지 공지사항 상세내용 -->
+	<!-- mpAdmin-aNotice -->
+	<definition name="aNoticeDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aNotice/aNoticeDetail.jsp" />
+	</definition>
+
+
+	<!-- mpAdmin-aStudent -->
+	<definition name="aStudentMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aStudent/aStudentMain.jsp" />
+	</definition>
+	<!-- mpAdmin-aTeacher 메인 -->
+	<definition name="aTeacherMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aTeacher/aTeacherMain.jsp" />
+	</definition>
+	<!-- mpAdmin-aTeacher 이력서 -->
+	<definition name="aTeacherResume" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aTeacher/aTeacherResume.jsp" />
+	</definition>
+
+	<!-- 관리자페이지 선생님 공지사항 관리 -->
+	<!-- mpAdmin-aTNotice -->
+	<definition name="aTNoticeMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aTNotice/aTNoticeMain.jsp" />
+	</definition>
+	<!-- 관리자페이지 선생님 공지사항 상세내용 -->
+	<!-- mpAdmin-aTNotice -->
+	<definition name="aTNoticeDtail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aTNotice/aTNoticeDetail.jsp" />
+	</definition>
+	<!-- mpAdmin-aVideo -->
+	<definition name="aVideoMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpAdmin/aVideo/aVideoMain.jsp" />
+	</definition>
+
+	<!-- mpStudent-sAdvice -->
+	<definition name="sAdviceMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sAdvice/sAdviceMain.jsp" />
+	</definition>
+
+	<!-- 회원 락 페이지로 이동 -->
+	<definition name="sInformationLock" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sInformation/sInformationLock.jsp" />
+	</definition>
+
+
+
+	<!-- mpStudent-sInformation -->
+	<definition name="sInformationMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sInformation/sInformationMain.jsp" />
+	</definition>
+	<!-- mpStudent-sInquire -->
+	<definition name="sInquireMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sInquire/sInquireMain.jsp" />
+	</definition>
+	<definition name="sInquireDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sInquire/sInquireDetail.jsp" />
+	</definition>
+	<!-- mpStudent-sLecture -->
+	<definition name="sLectureMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sLecture/sLectureMain.jsp" />
+	</definition>
+	<!-- mpStudent-sNote -->
+	<definition name="sNoteMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sNote/sNoteMain.jsp" />
+	</definition>
+	<!-- mpStudent-sQuestion -->
+	<definition name="sQuestionMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sQuestion/sQuestionMain.jsp" />
+	</definition>
+
+	<!-- mpTeacher-tAdvice -->
+	<definition name="tAdviceMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tAdvice/tAdviceMain.jsp" />
+	</definition>
+	<!-- mpTeacher-tInformation -->
+	<definition name="tInformationMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tInformation/tInformationMain.jsp" />
+	</definition>
+	<!-- mpTeacher-tLecture -->
+	<definition name="tLectureMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tLecture/tLectureMain.jsp" />
+	</definition>
+	<!-- mpTeacher-tLectureEdit 커리큘럼수정 -->
+	<definition name="tLectureEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tLecture/tLectureEdit.jsp" />
+	</definition>
+	<!-- mpTeacher-tLectureEdit2 동영상수정 -->
+	<definition name="tLectureEdit2" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tLecture/tLectureEdit2.jsp" />
+	</definition>
+
+	<!-- 강사 락 페이지로 이동 -->
+	<definition name="tInformationLock" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tInformation/tInformationLock.jsp" />
+	</definition>
+
+
+
+	<!-- mpTeacher-tQuestion -->
+	<definition name="tQuestionMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tQuestion/tQuestionMain.jsp" />
+	</definition>
+	<!-- mpTeacher-tStudent -->
+	<definition name="tStudentMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tStudent/tStudentMain.jsp" />
+	</definition>
+	<!-- mpTeacher-tVideo -->
+	<definition name="tVideoMain" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/tVideoMain.jsp" />
+	</definition>
+
+	<!-- 마이페이지로 이동 -->
+	<definition name="myInfoLock" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/myPageLock.jsp" />
+	</definition>
+
+	<!-- 학생 마이 페이지 -->
+	<definition name="studentMyInfoUpdate" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/studentMyPage.jsp" />
+	</definition>
+
+	<!-- 커리큘럼 리스트 -->
+	<definition name="curriculumList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/curriculum/curriculumList.jsp" />
+	</definition>
+	
+	<!-- 커리큘럼 추가 -->
+	<definition name="curriculumInsert" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/curriculum/insertCurriculum.jsp" />
+	</definition>
+	
+	<!-- 커리큘럼 수정 -->
+	<definition name="curriculumUpdate" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/curriculum/updateCurriculum.jsp" />
+	</definition>
+
+	<!-- 마인드맵 리스트 -->
+	<definition name="mindmapInsert" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/curriculum/mindmap.jsp" />
+	</definition>
+
+	<!-- 마인드맵 수정 -->
+	<definition name="mindmapEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/curriculum/mindmapEdit.jsp" />
+	</definition>
+
+
+	<!-- 강의 상세정보 -->
+	<definition name="lectureDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/lectureDetail.jsp" />
+	</definition>
+	
+	<!-- 선생님 프로필수정 -->
+	<definition name="teacherEdit" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tProfile/teacherEdit.jsp" />
+	</definition>
+
+
+	<!-- 비디오 업로드 -->
+	<definition name="editLecture" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/editLecture.jsp" />
+	</definition>
+	<!-- 비디오 업로드 -->
+	<definition name="videoUpload" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/videoUpload.jsp" />
+	</definition>
+	<!-- 비디오 리스트 -->
+	<definition name="videoList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/videoList.jsp" />
+	</definition>
+
+	<!-- 강의 시청 -->
+	<definition name="watchVideo" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/watchVideo.jsp" />
+	</definition>
+	<!-- 선생님 리스트 -->
+	<definition name="teacherList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/teacherList.jsp" />
+	</definition>
+	<!-- 선생님 상세보기 -->
+	<definition name="teacherDetail" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tVideo/teacherDetail.jsp" />
+	</definition>
+
+	<!-- 신청현황 리스트(학생) -->
+	<definition name="sLectureList" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sLecture/sLectureList.jsp" />
+	</definition>
+
+	<!-- 선생님 채팅방 -->
+	<definition name="teacherPage" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpTeacher/tAdvice/teacherPage.jsp" />
+	</definition>
+	<!-- 학생 채팅방 -->
+	<definition name="studentPage" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage/mpStudent/sAdvice/studentPage.jsp" />
+	</definition>
+
+</tiles-definitions>

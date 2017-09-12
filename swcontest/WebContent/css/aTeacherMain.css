@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+#title{
+	color: #3c8dbc;	
+	font-weight: bold;
+}
+#wrapper{
+	background: white;
+}
+#conWBground{
+	background-color: white;
+}
+#searchBtn{
+	padding-left: 0.4%;
+	padding-right: 0.4%;
+}
+#hr{
+	width: 1370px;
+}
+#fomat{
+	padding: 10%;
+}

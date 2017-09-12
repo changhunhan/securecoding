@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+
+#wrapper{
+	background: white;
+}
+#backBox{
+	height: 100%;
+}
+#conWBground{
+	background-color: white;
+}
+#option{
+	margin-right:70%; padding-left: 10px;
+	}
+#title{
+	color: #3c8dbc;	
+	font-weight: bold;
+}

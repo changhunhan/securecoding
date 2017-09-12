@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="borcomm">
+	<typeAlias alias="borcommVo" type="org.securecoding.swcontest.vo.BorcommVo" />
+
+	<!-- 댓글 리스트 전체 가져오기 -->
+	<select id="commentList" resultClass="borcommVo">
+				
+		SELECT comm_num 
+      		  ,comm_title
+      		  ,comm_wri_pers
+      		  ,comm_date
+      		  ,bor_num
+      		  ,	COMM_GNUM
+			  ,COMM_ONUM
+			  ,COMM_NESTED
+      		  ,(SELECT mem_img_rename as user_img FROM MEMBER WHERE  mem_id = A.comm_wri_pers 
+       			union SELECT tea_img as user_img FROM TEACHER WHERE TEA_ID = A.comm_wri_pers) AS comm_img
+		FROM   BORCOMM A 
+		WHERE  BOR_NUM = #bor_num#
+		order by  comm_num desc
+		
+	</select>
+	
+	<delete id="commentDelete">
+		DELETE FROM	BORCOMM
+		WHERE COMM_NUM = #comm_num#
+	</delete>
+	
+	<insert id="commentInsert" parameterClass="borcommVo" >
+		 INSERT INTO
+		 	BORCOMM	(COMM_NUM
+             	  ,  COMM_TITLE
+             	  ,  COMM_WRI_PERS
+              	  ,  COMM_DATE
+             	  ,  BOR_NUM
+             	  ,  COMM_GNUM
+              	  ,  COMM_ONUM
+              	  ,  COMM_NESTED
+					)
+			VALUES	(	SEQ_COMMRECOM.NEXTVAL
+					,	#comm_title#
+					,	#comm_wri_pers#
+					,	TO_CHAR(SYSDATE,'YY/MM/DD HH24:MI:SS')
+					,	(SELECT BOR_NUM FROM BOARD WHERE BOR_NUM = #bor_num#)
+					,	SEQ_COMMRECOM.CURRVAL
+					,	0
+					,	0
+					)
+	</insert>
+	<select id="getCommentCurrentNum" resultClass="string">
+		SELECT	SEQ_COMMRECOM.CURRVAL FROM DUAL
+	</select>
+	
+	<insert id="ansCommentInsert" parameterClass="borcommVo" >
+		 INSERT INTO
+		 	ANSBORCOM	(ans_comm_num
+             	  ,  ans_comm_title
+             	  ,  ans_comm_wri_pers
+              	  ,  ans_comm_date
+             	  ,  ans_bor_num
+					)
+			VALUES	(	SEQ_ANSBORCOM.NEXTVAL
+					,	#comm_title#
+					,	#comm_wri_pers#
+					,	TO_CHAR(SYSDATE,'YY/MM/DD HH24:MI:SS')
+					,	(SELECT ANS_BOR_NUM FROM ANSWERBOR WHERE ANS_BOR_NUM = #bor_num#)
+					)
+	</insert>
+	
+	<select id="ansCommentList" resultClass="borcommVo">
+		SELECT ans_comm_num as comm_num
+      		  ,ans_comm_title as comm_title
+      		  ,ans_comm_wri_pers as comm_wri_pers
+      		  ,ans_comm_date as comm_date
+      		  ,ans_bor_num 
+      		  ,(SELECT mem_img_rename as user_img FROM MEMBER WHERE  mem_id = a.ANS_COMM_WRI_PERS 
+       			union SELECT tea_img as user_img FROM TEACHER WHERE TEA_ID = a.ANS_COMM_WRI_PERS) AS comm_img
+		FROM   ANSBORCOM a
+		WHERE  ANS_BOR_NUM = #bor_num#
+		order by  ans_comm_num desc
+		
+	</select>
+	
+	<delete id="ansCommentDelete">
+		DELETE FROM	ANSBORCOM
+		WHERE ANS_COMM_NUM = #comm_num#
+	</delete>
+	
+	
+</sqlMap>

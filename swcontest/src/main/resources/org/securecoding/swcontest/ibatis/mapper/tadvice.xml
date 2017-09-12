@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="tadvice">
+
+	<typeAlias alias="adviceVo" type="org.securecoding.swcontest.vo.AdviceVo"/>
+	
+	<select id="selectAdviceByAdv_tea_id" parameterClass="string" resultClass="adviceVo">
+		SELECT    ADV_TEA_ID
+				, TITLE
+				, ADV_START AS "START"
+				, END
+				, ID
+				, ADV_ENROLL
+				, ADV_DIVI
+				, ADV_MEM_ID
+        		, ADV_STATE
+		FROM	  ADVICE
+		WHERE	  ADV_TEA_ID=#adv_tea_id#
+		AND       TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDDHH24')) - TO_NUMBER(SUBSTR(REPLACE(REPLACE(REPLACE(REPLACE(ADV_START,'T',''),'-',''),':',''),' ',''),1,10)) <![CDATA[  <  ]]> 0
+    	ORDER BY  ADV_ENROLL DESC
+	</select>
+	
+	
+	<select id="selectAdvice" parameterClass="string" resultClass="adviceVo">
+		SELECT    ADVICE.ADV_TEA_ID
+				, ADVICE.TITLE
+				, ADVICE.ADV_START AS "START"
+				, ADVICE.END
+				, ADVICE.ID
+				, ADVICE.ADV_ENROLL
+				, ADVICE.ADV_DIVI
+				, ADVICE.ADV_MEM_ID
+        		, ADVICE.ADV_STATE
+        		, MEMBER.MEM_NAME
+		FROM	  ADVICE, MEMBER
+		WHERE	  ADVICE.ADV_TEA_ID=#adv_tea_id#
+			AND   TO_NUMBER(TO_CHAR(SYSDATE,'YYYYMMDDHH24')) - TO_NUMBER(SUBSTR(REPLACE(REPLACE(REPLACE(REPLACE(ADVICE.END,'T',''),'-',''),':',''),' ',''),1,10)) <![CDATA[  <  ]]> 0
+			AND	  ADVICE.ADV_ENROLL IS NOT NULL
+			AND   ADVICE.ADV_MEM_ID=MEMBER.MEM_ID
+    	ORDER BY  ADVICE.ADV_ENROLL DESC
+	</select>
+	
+	
+	<insert id="insertAdviceByT" parameterClass="adviceVo">
+		INSERT INTO
+			ADVICE(	ADV_TEA_ID
+				,	TITLE
+				,	ADV_START
+				,	END
+				,	ID
+				,	ADV_STATE
+			)
+			VALUES(	#adv_tea_id#
+				,	#title#
+				,	#start#
+				,	#end#
+				,	SEQ_ADVREQ.NEXTVAL
+				,	#adv_state#
+			)
+	</insert>
+	
+	<delete id="deleteAdviceByAdvNum" parameterClass="string">
+		DELETE	FROM ADVICE
+		WHERE	ID=#id#
+	</delete>
+	
+	<update id="updateKey" parameterClass="adviceVo">
+		UPDATE ADVICE
+		SET ADV_KEY = #adv_key#
+		WHERE ID = #id#
+	</update>
+	
+	<update id="pageUnload">
+		UPDATE ADVICE
+		SET ADV_KEY = ''
+		WHERE ID = #id#
+	</update>
+</sqlMap>

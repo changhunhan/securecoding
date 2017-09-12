@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="main">
+	
+	<typeAlias alias="BannerVo" type="org.securecoding.swcontest.main.vo.BannerVo" />
+	<typeAlias alias="boardVo" type="org.securecoding.swcontest.vo.BoardVo"/>
+	<typeAlias alias="noteVo" type="org.securecoding.swcontest.vo.NoteVo"/>
+	<typeAlias alias="memberVo" type="org.securecoding.swcontest.vo.MemberVo" />
+	<typeAlias alias="teacherVo" type="org.securecoding.swcontest.vo.TeacherVo"/>
+	<typeAlias alias="lecWatvo" type="org.securecoding.swcontest.vo.LecWatVo"/>
+	
+	<select id="tNoticeList" resultClass="boardVo" parameterClass="String">
+		select DISTINCT	bor_num,
+				bor_title,
+				bor_wri_pers,
+				bor_date,
+				bor_chk_con	
+		from board,currireq,curricullum
+		where currireq.mem_id=#mem_id#
+    	and currireq.cur_num=curricullum.cur_num
+    	and curricullum.tea_id=board.bor_wri_pers
+      	and board.bor_divi_code='bdi02'
+		order by to_number(bor_num) desc
+	</select>
+	
+	<select id="tNoticeListTeacher" resultClass="boardVo" parameterClass="String">
+		select  bor_num,
+				bor_title,
+				bor_wri_pers,
+				bor_date,
+				bor_chk_con	
+		from board
+		where bor_wri_pers=#mem_id#
+      	and bor_divi_code='bdi02'
+		order by to_number(bor_num) desc
+	</select>
+	
+	<select id="tNoticeListAdmin" resultClass="boardVo">
+		select  bor_num,
+				bor_title,
+				bor_wri_pers,
+				bor_date,
+				bor_chk_con	
+		from board
+    	where bor_divi_code='bdi02'
+		order by to_number(bor_num) desc
+	</select>
+	
+	<select id="noticeList" resultClass="boardVo">
+		select 	BOR_NUM,
+				BOR_TITLE,
+				BOR_WRI_PERS,
+				BOR_DATE,
+				BOR_CHK_CON	
+		from board
+		where BOR_DIVI_CODE='bdi01'
+		order by to_number(BOR_NUM) desc
+	</select>
+		<select id="examList" resultClass="boardVo">
+		select 	BOR_NUM,
+				BOR_TITLE,
+				BOR_WRI_PERS,
+				BOR_DATE,
+				BOR_CHK_CON	
+		from board
+		where BOR_DIVI_CODE='bdi05'
+		order by to_number(BOR_NUM) desc
+	</select>
+
+
+	<select id="studyList" resultClass="boardVo">
+		select 	BOR_NUM,
+				BOR_TITLE,
+				BOR_WRI_PERS,
+				BOR_DATE,
+				BOR_CHK_CON	
+		from board
+		where BOR_DIVI_CODE='bdi06'
+		order by to_number(BOR_NUM) desc
+	</select>
+
+	<select id="selectBannerAll" resultClass="BannerVo">
+		SELECT 
+		bann_num,
+		bann_cont,
+		bann_date
+		FROM banner
+		ORDER BY BANN_NUM
+	</select>
+	
+	<select id="noteList" resultClass="noteVo" parameterClass="String">
+		select 
+			note_num,
+			note_cont,
+			note_send_date,
+			note_send_pers,
+			note_rece_pers,
+			note_check
+		from note
+		where note_rece_pers=#note_rece_pers#
+		order by note_send_date desc
+	</select>
+	
+	<select id="noteSendList" resultClass="noteVo" parameterClass="String">
+		select *
+		from note
+		where note_send_pers=#note_send_pers#
+		order by note_send_date desc
+	</select>
+	
+	
+	<insert id="noteInsert" parameterClass="noteVo">
+	 	insert into note(
+      		note_num,
+      		note_cont,
+			note_send_date,
+			note_send_pers,
+			note_rece_pers,
+			note_check
+      	)values(
+      		seq_note.nextval,
+      		#note_cont#,
+      		(select TO_CHAR(sysdate,'yy/mm/dd hh24:mi:ss')from dual),
+      		#note_send_pers#,
+      		#note_rece_pers#,
+      		'no'    
+      )
+	</insert>
+	
+	<select id="noteCheckCount" resultClass="noteVo" parameterClass="String">
+		select 
+ 			to_char(count(note_check)) as note_check
+		from note 
+		where note_check='no'
+		and note_rece_pers=#note_rece_pers#
+	</select>
+	
+	<update id="noteCheckUpdate" parameterClass="String">
+		update note set
+		note_check='yes'
+		where note_check='no'
+		and note_rece_pers=#note_rece_pers# 
+	</update>
+	
+	<select id="selectId" resultClass="String" parameterClass="noteVo">
+		select mem_id as note_rece_pers
+		from member
+		where mem_id=#note_rece_pers#
+		union
+		select tea_id as note_rece_pers
+		from teacher
+		where tea_id=#note_rece_pers#
+	</select>
+	
+	<select id="memberImg" resultClass="memberVo" parameterClass="String">
+		select *
+		from member
+		where mem_id=#mem_id#
+	</select>
+	
+	<select id="teacherImg" resultClass="teacherVo" parameterClass="String">
+		select *
+		from teacher
+		where tea_id=#tea_id#
+	</select>
+
+	<select id="lecWatList" resultClass="lecWatVo">
+		SELECT LECWAT.LEC_PLAY_DATE AS lec_play_date,
+	    LECWAT.LEC_NUM as lec_num,
+	    LECTURE.LEC_TITLE as lec_title,
+	    TEACHER.TEA_NAME as tea_name
+		FROM LECWAT, LECTURE, TEACHER, CURRICULLUM
+		WHERE LECWAT.LEC_NUM = LECTURE.LEC_NUM
+		AND LECTURE.CUR_NUM = CURRICULLUM.CUR_NUM
+		AND CURRICULLUM.TEA_ID = TEACHER.TEA_ID
+		AND LECWAT.MEM_ID = #mem_id#
+		ORDER BY LEC_PLAY_DATE DESC
+	</select>
+
+</sqlMap>

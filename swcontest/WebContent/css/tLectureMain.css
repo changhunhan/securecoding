@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+
+ a:link { color: white; text-decoration: none;}
+ a:visited { color: white; text-decoration: none;}
+ a:hover { color: white; text-decoration: none;}
+
+body{
+	background: white;
+}
+
+#trectureOPform{
+	margin-right: 70%;
+} 
+
+#wrapper{
+	background: white;
+}
+#backBox{
+	height: 100%;
+}
+#title{
+	color: #3c8dbc;
+	font-weight: bold;
+}
+
+#sQfont{
+	font-weight: bold;
+}
+
+#conWBground{
+	background-color: white;
+}
+#tdc{
+	color: #00c0ef;
+	font-weight: bold;
+}
+#hr{
+	width: 1370px;
+}
+
+

@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+body{
+	background: white;
+}
+#inputOption{
+	width: 90%;
+}
+#wrapper{
+	background: white;
+}
+#backBox{
+	height: 100%;
+}
+#title{
+	color: #f56954;
+	font-weight: bold;
+}
+
+#sQfont{
+	font-weight: bold;
+}
+
+#conWBground{
+	background-color: white;
+}
+#check1{
+	margin-top: 1%;
+}
+#check2{
+	margin-top: 1%;
+}
+#label1{
+	margin-top: 0.6%;
+}
+#label2{
+	margin-top: 0.6%;
+}
+#label3{
+	margin-top: 0.6%;
+}

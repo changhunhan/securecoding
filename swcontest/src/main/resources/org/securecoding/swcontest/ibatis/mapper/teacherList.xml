@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="teacherList">
+	<typeAlias alias="teacherVo" type="org.securecoding.swcontest.vo.TeacherVo"/>
+	<typeAlias alias="curriculumVo" type="org.securecoding.swcontest.video.lecture.vo.CurriculumVo" />
+	<typeAlias alias="lectureVo" type="org.securecoding.swcontest.video.lecture.vo.LectureVo" />
+	
+	<select id="selectByTestDivCode" resultClass="String">
+		SELECT TEST_CFY
+		FROM TESTDIVE
+		WHERE TEST_DIVI_CODE = #test_divi_code#
+	</select>
+		
+	<select id="selectByProceCfyCode" resultClass="String">
+		SELECT PROCE_NAME
+		FROM PROCESSCLA
+		WHERE PROCE_CFY_CODE = #proce_cfy_code#
+	</select> 
+	
+	<select id="selectByTeacherCfyCode" resultClass="teacherVo">
+		SELECT *
+		FROM TEACHER
+		WHERE PROCE_CFY_CODE = #proce_cfy_code#
+		ORDER BY TEA_NAME
+	</select>
+	
+	<select id="selectByTeacherId" resultClass="teacherVo">
+		SELECT  A.TEA_ID,
+				A.TEA_NAME,
+				A.TEA_PROF,
+				A.PROCE_CFY_CODE,
+				A.TEA_INTRO_IMG,
+				B.PROCE_NAME				
+		FROM TEACHER A LEFT OUTER JOIN PROCESSCLA B ON (A.PROCE_CFY_CODE =
+		B.PROCE_CFY_CODE)
+		WHERE TEA_ID = #tea_id#
+	</select>
+	
+	<select id="selectCurriculumByTeacherId" resultClass="curriculumVo">
+		SELECT A.CUR_NUM,
+		       A.CUR_TITLE,
+		       A.PROCE_CFY_CODE,
+		       B.PROCE_NAME,
+		       A.CUR_POSS
+		FROM CURRICULLUM A LEFT OUTER JOIN PROCESSCLA B ON (A.PROCE_CFY_CODE =
+		B.PROCE_CFY_CODE)
+		WHERE A.TEA_ID = #tea_id#
+		ORDER BY A.CUR_NUM
+	</select>
+	
+	<select id="selectLectureAll" resultClass="lectureVo">
+		SELECT LEC_NUM,
+			   LEC_TITLE,
+			   CUR_NUM
+		FROM LECTURE
+		ORDER BY LEC_NUM
+	</select>
+</sqlMap>

@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+#title{
+	color: #3c8dbc;	
+	font-weight: bold;
+}
+
+#wrapper{
+	background: white;
+}
+
+#conWBground{
+	background-color: white;
+}
+
+#hr{
+	width: 1370px;
+}
+#boxheader{
+	background-color :#76c415; 
+	color: white;
+	text-align: center;
+
+}
+#title2{
+	font-weight: bold;
+	padding-top: 7px;
+}
